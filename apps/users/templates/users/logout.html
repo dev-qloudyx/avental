@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Acabou de terminar sessão...</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'users:login' %}">Fazer Login outravez..</a>
+        </small>
+    </div>
+{% endblock content%}

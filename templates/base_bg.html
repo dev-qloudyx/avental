@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include '_head.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="icon" href="{% static 'images/bimby-logo.png' %}" type="image/png" sizes="16x16">
+
+    {% if not user.is_authenticated %}
+    <style>
+        @media (max-width: 991px) {
+            #navbarSupportedContent {
+                margin-top: 16.125em;
+            }
+        }
+    </style>
+    {% endif %}
+</head>
+
+<body>
+    <div class="container-fluid px-0" style="background-color: #046d84;">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg mx-0 mt-0 px-4 pt-3">
+            <a class="navbar-brand ml-2 mr-4" href="#"><img src="{% static 'images/bimby-logo.png' %}" alt="" style="width: 65%"></a>
+            {% if user.is_authenticated %}
+                <a class="mr-4 ml-auto d-lg-none" href="{% url 'users:profile' %}">
+                    <img class="rounded-circle mr-2 p-1" style="width: 35px; height: 35px;"
+                            src="{% static 'images/smiley.png' %}">{{ user.username }}
+                </a>
+            {% endif %}
+            <button class="btn navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+          
+            <div class="collapse navbar-collapse nav justify-content-lg-center flex-column flex-lg-row p-3 p-lg-0" id="navbarSupportedContent" {% if user.is_authenticated %} style="margin-left: 6rem;" {% else %}style="margin-right: 6rem;" {% endif %}>
+                <!-- <li class="nav-item menu-item mx-lg-1 mx-xl-4">
+                    <a class="nav-link active" href="#">Informação Geral</a>
+                </li> -->
+                {% if user.is_authenticated %}
+                <li class="menu-user d-block d-lg-none">
+                    <hr class="d-lg-none" style="border-top: 1px solid white;">
+                    <!-- <button onclick="logOut()" class="btn-rev btn-md mr-1"
+                        style="padding: 0.5rem 1rem;"><i class="fas fa-power-off"></i>&nbsp; Logout
+                    </button> -->
+                    <a href="{% url 'users:logout' %}" class="btn-rev btn-md mr-1" style="padding: 0.5rem 1rem;"><i class="fas fa-power-off"></i>&nbsp; Logout</a>
+                </li>
+                {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+            <a class="d-none d-lg-inline-block mr-1 px-3 py-2 menu-user" href="{% url 'users:profile' %}">
+                <img class="rounded-circle mr-2 p-1" src="{% static 'images/smiley.png' %}">{{ user.username }}
+            </a>
+            <a class="btn btn-md mr-2 d-none d-lg-inline-block" style="padding-left: 12px; padding-right: 12px;" href="{% url 'users:logout' %}"><i class="fas fa-power-off"></i></a>
+            <!-- <button onclick="logOut()" class="btn btn-md mr-2 d-none d-lg-inline-block" style="padding-left: 12px; padding-right: 12px;"><i class="fas fa-power-off"></i></button> -->
+            {% endif %}
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <div>
+                {% for message in messages %}
+                <div class="text-center mt-4 alert alert-{{ message.tags }}">
+                    <i style="font-size: 20px;" class="fas fa-exclamation-circle"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% block content %}{% endblock %}
+            </div>
+        </div> 
+        
+        <!-- Footer d-none d-sm-none d-md-block  -->
+        <div class="w-100 footer" style="font-size: 12px;">
+            <div class="row p-4 m-0 text-center text-md-left" style="background-color: #d9d9d9;">
+                <div class="col-12 col-md-3 mt-1">
+                    <h6><a href="https://www.vorwerk.com/pt/pt/c/home/geral/termos-e-condicoes" target="_blank">Termos e Condições</a></h6>
+                </div>
+                <div class="col-12 col-md-3 mt-1">
+                    <h6><a href="https://www.vorwerk.com/pt/pt/c/dam-home/downloads/regulamentos-passatempos/Regulamento-passatempo-o-ar-e-de-todos-2023.pdf" target="_blank">Regulamento</a></h6>
+                </div>
+                <div class="col-12 col-md-3 mt-1 px-0">
+                    <h6>
+                        <a href="https://www.vorwerk.com/pt/pt/c/home/geral/politica-de-privacidade" target="_blank">Politica de privacidade</a>
+                    </h6>
+                </div>
+                <div class="col-12 col-md-3 mt-4 mt-md-0">
+                    <div class="socialmedia d-flex justify-content-around">
+                        <a href="https://www.facebook.com/BimbyPortugal?fref=ts" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/bimbyportugal/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/channel/UCCsNIGpKCR5XfNoYbiZi30g" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.pinterest.pt/bimbyportugal/?eq=bimby&etslf=2543" target="_blank"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-1 m-0" style="background-color: rgb(162, 161, 161);">
+                <div class="col mx-auto text-center">
+                    <a href="https://qloudyx.pt" target="_blank"> &#169; {% now "Y" %}, eXcellerated by qloudyx.</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    {% include '_footer.html' %}
+    <script id="jsLogoutTemplate" type="text/x-kendo-template">
+        <div>
+            <p>{{ user.username }}, pretende terminar sessão?</p>
+        </div>
+    </script>
+    <script>
+        var LogOutScripts = (function () {
+            // Instance stores a reference to the LogOutScripts
+            var instance;
+            // Dialog object
+            var dialog = $("<div />");
+
+            function init() {
+                dialog = dialog.kendoDialog({
+                    title: "Terminar sessão",
+                    content: kendo.template($("#jsLogoutTemplate").html()),
+                    closable: false,
+                    buttonLayout: "normal",
+                    actions: [
+                        {
+                            text: "Sim",
+                            action: function (e) {
+                                window.location.href = "{% url 'users:logout' %}";
+                                return true;
+                            }
+                        },
+                        {
+                            text: "Não",
+                            primary: true,
+                            action: function (e) {
+                                // Do something...
+                                // We must return true otherwise the modal will not close
+                                return true;
+                            }
+                        }]
+                }).data("kendoDialog");
+
+                return {
+
+                    open: function () {
+                        return dialog.open();
+                    },
+
+                    close: function () {
+                        return dialog.close();
+                    },
+
+                    getDialog: function () {
+                        return dialog;
+                    },
+
+                    isHidden: function () {
+                        return $(dialog.wrapper).is(":hidden");
+                    }
+                };
+            }
+
+            return {
+
+                start: function () {
+
+                    if (!instance) {
+                        instance = init();
+                    }
+
+                    return instance;
+                }
+
+            };
+        })();
+
+        function logOut() {
+            // Initialize or Start LogoutScripts
+            var logoutDialog = LogOutScripts.start();
+            if (logoutDialog != null) {
+                if (logoutDialog.isHidden()) {
+                    logoutDialog.open();
+                }
+            }
+            
+        }
+    </script>
+</body>
+
+</html>

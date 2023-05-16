@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-crispy-forms = "*"
+pillow = "*"
+psycopg2-binary = "*"
+djangorestframework = "*"
+requests = "*"
+gunicorn = "*"
+openpyxl = "*"
+crispy-bootstrap4 = "*"
+celery = "*"
+django_celery_results = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
