@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Profile
+from .models import User, Profile, Upload, Voto
 from django.utils.safestring import mark_safe
 from django.contrib.auth.forms import UserCreationForm
 
@@ -52,3 +52,25 @@ class UserUpdateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+
+
+class UploadForm(forms.ModelForm):
+    class Meta:
+        model = Upload
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        user_id = kwargs.pop('user_id')
+        super().__init__(*args, **kwargs)
+        self.initial['user'] = User.objects.get(id=user_id)
+
+
+class VotoForm(forms.ModelForm):
+    class Meta:
+        model = Voto
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        user_id = kwargs.pop('user_id')
+        super().__init__(*args, **kwargs)
+        self.initial['upload'] = Upload.objects.get(user=user_id)

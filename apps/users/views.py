@@ -1,12 +1,15 @@
+from typing import Any, Dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.views import PasswordResetCompleteView, PasswordResetDoneView
 from django.contrib.auth.decorators import login_required
+from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy, reverse
+from django.contrib.sites.models import Site
 
-from .models import Profile, User
-from .forms import UserRegisterForm, UserUpdateForm, ProfileRegisterForm
+from .models import Profile, User, Upload, Voto
+from .forms import UserRegisterForm, UserUpdateForm, ProfileRegisterForm, UploadForm, VotoForm
 from .roles import role_required, ADMIN
 
 
@@ -72,3 +75,60 @@ class MyPasswordResetDoneView(PasswordResetDoneView):
         messages.success(request, 'Um e-mail acabou de ser enviado com as \
             instruções para redefinir a sua senha... Confirme, por favor.')
         return redirect('users:login')
+
+class UploadCreateView(CreateView):
+    model = Upload
+    form_class = UploadForm
+    success_url = reverse_lazy("users:profile") 
+
+    def get(self, request):
+        self.user_id = request.user.id
+        return super().get(request)
+
+    def post(self, request):
+        self.user_id = request.user.id
+        return super().post(request)
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super().get_form_kwargs()
+        kwargs['user_id'] = self.user_id
+        return kwargs
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'users/detail.html'
+
+    def get_context_data(self, **kwargs: Any):
+        ctx = super().get_context_data(**kwargs)
+        votos = Voto.objects.filter(upload=self.object.upload, validade=True).count()
+        ctx['votos'] = votos
+        return ctx
+
+
+class VotoCreateView(CreateView):
+    model = Voto
+    form_class = VotoForm
+
+    def get(self,request, user_id):
+        self.user_id = user_id
+        return super().get(request)
+
+    def post(self,request, user_id):
+        self.user_id = user_id
+        return super().post(request)
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super().get_form_kwargs()
+        kwargs['user_id'] = self.user_id
+        return kwargs
+    
+    def get_success_url(self):
+        messages.success(self.request, 'Voto Submetido! Deverá consultar o seu e-mail para validar o voto!')
+        return reverse(
+            'users:detail',
+            kwargs={
+                'pk': self.user_id
+            })
+    
+

@@ -68,11 +68,23 @@ class User(AbstractBaseUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # first_name = models.CharField(max_length=80)
-    # last_name = models.CharField(max_length=80)
-    # loja = models.ForeignKey(Local, null=True, on_delete=models.SET_NULL)
-    # bimby = models.ForeignKey(Bimby, null=True, on_delete=models.SET_NULL)
-    # aceito = models.BooleanField(default=False)
     
     def __str__(self):
         return f'{self.user.username} Profile'
+
+
+class Upload(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    imagem = models.ImageField(upload_to='avental_pics', verbose_name="Imagem")
+
+    def __str__(self):
+        return f'{self.user}'
+
+class Voto(models.Model):
+    email = models.EmailField(unique=True)
+    upload = models.ForeignKey(Upload, on_delete=models.CASCADE)
+    validade = models.BooleanField(default=False)
+    data= models.DateTimeField(verbose_name='data', auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.email}'

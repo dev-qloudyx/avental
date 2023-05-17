@@ -1,0 +1,28 @@
+{% extends "base_bg.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<style>
+    .x {
+        color: #e87e19;;
+    }
+</style>
+<div class="row">
+    <div class="col-12 col-lg-8 offset-lg-2">
+        <div class="heroimgbox-login p-4 my-5">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4" style="color: #e87e19;"><i style="width: 30px" class="fa-solid fa-user-plus"></i>Voto</legend>
+                    {{ form.email|as_crispy_field }}
+                    {{ form.upload.as_hidden}}
+                    {{ form.validade.as_hidden}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content%}

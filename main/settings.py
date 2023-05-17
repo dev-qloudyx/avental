@@ -32,6 +32,8 @@ ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
+SITE_ID = 1
+
 INSTALLED_APPS = [
     'apps.users.apps.UsersConfig',
     'crispy_forms',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',

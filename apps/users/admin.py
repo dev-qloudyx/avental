@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from .models import User, Profile
+from .models import User, Profile, Upload, Voto
 
 
 class UserAdmin(auth_admin.UserAdmin):
@@ -15,3 +15,5 @@ class UserAdmin(auth_admin.UserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile)
+admin.site.register(Upload)
+admin.site.register(Voto)
