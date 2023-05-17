@@ -231,3 +231,5 @@ CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_RESULT_EXTENDED = True
 
 CSRF_TRUSTED_ORIGINS = [os.getenv('CSRF_TRUSTED_ORIGINS', default='https://*.127.0.0.1'), 'https://*.127.0.0.1'] #Django 4 up!
+
+TOKEN_URL = os.getenv('TOKEN_URL', '127.0.0.1')

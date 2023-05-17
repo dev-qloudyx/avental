@@ -1,3 +1,4 @@
+import jwt
 from typing import Any, Dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -7,10 +8,12 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy, reverse
 from django.contrib.sites.models import Site
-
+from django.conf import settings
+from django.views.generic import TemplateView
 from .models import Profile, User, Upload, Voto
 from .forms import UserRegisterForm, UserUpdateForm, ProfileRegisterForm, UploadForm, VotoForm
 from .roles import role_required, ADMIN
+from django.conf import settings
 
 
 def register(request):
@@ -130,5 +133,25 @@ class VotoCreateView(CreateView):
             kwargs={
                 'pk': self.user_id
             })
-    
+
+class CheckTokenView(TemplateView):
+    template_name = 'users/check_token.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        token = self.request.GET.get('token')
+        if token:
+            try:
+                decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+                vote_id = decoded_token['vote_id']
+                Voto.objects.filter(id=vote_id).update(validade=True)
+                context['message'] = 'Token válido.'
+            except jwt.ExpiredSignatureError:
+                context['message'] = 'Token expirado.'
+            except jwt.InvalidTokenError:
+                context['message'] = 'Token inválido.'
+        else:
+            context['message'] = 'Nenhum Token encontrado.'
+        return context
+        
 
