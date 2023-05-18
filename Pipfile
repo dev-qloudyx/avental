@@ -15,6 +15,7 @@ openpyxl = "*"
 crispy-bootstrap4 = "*"
 celery = "*"
 django_celery_results = "*"
+pyjwt = "*"
 
 [dev-packages]
 
