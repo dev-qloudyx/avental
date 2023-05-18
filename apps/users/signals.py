@@ -23,7 +23,7 @@ def save_profile(sender, instance, **kwargs):
 @receiver(post_save, sender=Voto)
 def send_email(sender, instance, created, **kwargs):
     if created:
-        expires_in = timedelta(seconds=7)
+        expires_in = timedelta(days=7)
         token_payload = {
             'vote_id': instance.id,
             'upload_id': instance.upload.id,
