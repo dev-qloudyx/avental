@@ -413,10 +413,6 @@ div.navbar-collapse {
   color: #e87e19;
 }
 
-.card-body {
-  min-height: 80px;
-  max-height: 80px;
-}
 
 #mandolina-tab.nav-link.active i.mandolina-icon {
   background-size: cover;

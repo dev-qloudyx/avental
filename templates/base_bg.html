@@ -35,16 +35,13 @@
             </button>
           
             <div class="collapse navbar-collapse nav justify-content-lg-center flex-column flex-lg-row p-3 p-lg-0" id="navbarSupportedContent" {% if user.is_authenticated %} style="margin-left: 6rem;" {% else %}style="margin-right: 6rem;" {% endif %}>
-                {% if request.user.upload %}
+                {% if user.is_authenticated %}
                 <li class="nav-item menu-item mx-lg-1 mx-xl-4">
-                    <a class="nav-link active" href="{% url 'users:detail' request.user.id %}">Upload</a>
+                    <a class="nav-link active" href="{% url 'users:list' request.user.id %}">Lista</a>
                 </li>
-                {% else %}
                 <li class="nav-item menu-item mx-lg-1 mx-xl-4">
                     <a class="nav-link active" href="{% url 'users:upload' %}">Upload</a>
                 </li>
-                {% endif %}
-                {% if user.is_authenticated %}
                 <li class="menu-user d-block d-lg-none">
                     <hr class="d-lg-none" style="border-top: 1px solid white;">
                     <!-- <button onclick="logOut()" class="btn-rev btn-md mr-1"

@@ -11,7 +11,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'last_name', 'aceito', 'role']
+        fields = ['email', 'username', 'first_name', 'last_name', 'aceito', 'role']
         help_texts = {
             'password1': '',
             'password2': ''
@@ -71,6 +71,6 @@ class VotoForm(forms.ModelForm):
         fields = '__all__'
     
     def __init__(self, *args, **kwargs):
-        user_id = kwargs.pop('user_id')
+        upload_id = kwargs.pop('upload_id')
         super().__init__(*args, **kwargs)
-        self.initial['upload'] = Upload.objects.get(user=user_id)
+        self.initial['upload'] = Upload.objects.get(id=upload_id)

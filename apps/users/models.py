@@ -31,7 +31,6 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True, verbose_name="E-mail")
     username = models.CharField(max_length=30, unique=True, verbose_name="Nome de Utilizador")
@@ -74,11 +73,14 @@ class Profile(models.Model):
 
 
 class Upload(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=80, verbose_name="Nome")
+    last_name = models.CharField(max_length=80, verbose_name="Apelido")
     imagem = models.ImageField(upload_to='avental_pics', verbose_name="Imagem")
 
     def __str__(self):
-        return f'{self.user}'
+        return f'{self.email}'
 
 class Voto(models.Model):
     email = models.EmailField(unique=True)
@@ -88,3 +90,11 @@ class Voto(models.Model):
 
     def __str__(self):
         return f'{self.email}'
+
+
+class Local(models.Model):
+    nome = models.CharField(max_length=30)
+    cidade = models.CharField(max_length=30)
+    
+    def __str__(self):
+        return f'{self.nome} - {self.cidade}'

@@ -2,11 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-<style>
-    .x {
-        color: #e87e19;;
-    }
-</style>
 <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
         <div class="heroimgbox-login p-4 my-5">
@@ -14,8 +9,11 @@
                 {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4" style="color: #e87e19;"><i style="width: 30px" class="fa-solid fa-user-plus"></i>Upload</legend>
-                    {{ form.user.as_hidden}}
-                    {{ form.imagem|as_crispy_field}}
+                    {{ form.user.as_hidden }}
+                    {{ form.email|as_crispy_field }}
+                    {{ form.first_name|as_crispy_field }}
+                    {{ form.last_name|as_crispy_field }}
+                    {{ form.imagem|as_crispy_field }}
                 </fieldset>
                 <div class="form-group">
                     <button class="btn btn-outline-info" type="submit">Enviar</button>

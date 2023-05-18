@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
@@ -232,4 +231,4 @@ CELERY_RESULT_EXTENDED = True
 
 CSRF_TRUSTED_ORIGINS = [os.getenv('CSRF_TRUSTED_ORIGINS', default='https://*.127.0.0.1'), 'https://*.127.0.0.1'] #Django 4 up!
 
-TOKEN_URL = os.getenv('TOKEN_URL', 'http://127.0.0.1')
+TOKEN_URL = os.getenv('TOKEN_URL', 'http://localhost:8000')

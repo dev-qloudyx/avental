@@ -1,3 +1,5 @@
+from django.db.models.query import QuerySet
+from django.db.models import Count
 import jwt
 from typing import Any, Dict
 from django.shortcuts import render, redirect
@@ -5,17 +7,16 @@ from django.contrib import messages
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.views import PasswordResetCompleteView, PasswordResetDoneView
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, TemplateView, ListView
 from django.urls import reverse_lazy, reverse
-from django.contrib.sites.models import Site
 from django.conf import settings
-from django.views.generic import TemplateView
 from .models import Profile, User, Upload, Voto
 from .forms import UserRegisterForm, UserUpdateForm, ProfileRegisterForm, UploadForm, VotoForm
 from .roles import role_required, ADMIN
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 
 def register(request):
@@ -100,14 +101,29 @@ class UploadCreateView(CreateView):
         return kwargs
 
 
-class UserDetailView(DetailView):
-    model = User
+class UploadDetailView(DetailView):
+    model = Upload
     template_name = 'users/detail.html'
 
     def get_context_data(self, **kwargs: Any):
         ctx = super().get_context_data(**kwargs)
-        votos = Voto.objects.filter(upload=self.object.upload, validade=True).count()
+        votos = Voto.objects.filter(upload = self.object.id,validade=True).count()
         ctx['votos'] = votos
+        return ctx
+
+class UploadListView(ListView):
+    model = Upload
+    template_name = 'users/list.html'
+
+    def get(self,request, user_id):
+        self.user_id = request.user.id
+        return super().get(request)
+
+    def get_queryset(self):
+        return Upload.objects.filter(user=self.user_id).annotate(votos=Count("voto", distinct=True))
+    
+    def get_context_data(self, **kwargs: Any):
+        ctx = super().get_context_data(**kwargs)
         return ctx
 
 
@@ -115,17 +131,17 @@ class VotoCreateView(CreateView):
     model = Voto
     form_class = VotoForm
 
-    def get(self,request, user_id):
-        self.user_id = user_id
+    def get(self,request, upload_id):
+        self.upload_id = upload_id
         return super().get(request)
 
-    def post(self,request, user_id):
-        self.user_id = user_id
+    def post(self,request, upload_id):
+        self.upload_id = upload_id
         return super().post(request)
 
     def get_form_kwargs(self, *args, **kwargs):
         kwargs = super().get_form_kwargs()
-        kwargs['user_id'] = self.user_id
+        kwargs['upload_id'] = self.upload_id
         return kwargs
     
     def get_success_url(self):
@@ -133,7 +149,7 @@ class VotoCreateView(CreateView):
         return reverse(
             'users:detail',
             kwargs={
-                'pk': self.user_id
+                'pk': self.upload_id
             })
 
 class CheckTokenView(TemplateView):
