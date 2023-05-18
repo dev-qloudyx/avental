@@ -187,4 +187,29 @@ class CheckTokenView(TemplateView):
             return redirect(redirect_url)
         
         
-
+class CheckTokenUploadView(TemplateView):
+    
+    def get(self, request, *args, **kwargs):
+        token = self.request.GET.get('token')
+        
+        if token:
+            try:
+                decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+                upload_id = decoded_token['upload_id']
+                redirect_url = reverse('users:detail', kwargs={'pk': upload_id})
+                return redirect(redirect_url)
+            except jwt.ExpiredSignatureError:
+                message = 'Token expirado.'
+                messages.error(self.request, message)
+                redirect_url = reverse('users:login')
+                return redirect(redirect_url)
+            except jwt.InvalidTokenError:
+                message = 'Token inválido.'
+                messages.error(self.request, message)
+                redirect_url = reverse('users:login')
+                return redirect(redirect_url)
+        else:
+            message = 'Nenhum Token encontrado.'
+            messages.warning(self.request, message)
+            redirect_url = reverse('users:login')
+            return redirect(redirect_url)
