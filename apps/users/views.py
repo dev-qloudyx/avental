@@ -14,6 +14,8 @@ from .models import Profile, User, Upload, Voto
 from .forms import UserRegisterForm, UserUpdateForm, ProfileRegisterForm, UploadForm, VotoForm
 from .roles import role_required, ADMIN
 from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 def register(request):
@@ -135,23 +137,38 @@ class VotoCreateView(CreateView):
             })
 
 class CheckTokenView(TemplateView):
-    template_name = 'users/check_token.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    
+    def get(self, request, *args, **kwargs):
         token = self.request.GET.get('token')
+        
         if token:
             try:
                 decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
                 vote_id = decoded_token['vote_id']
-                Voto.objects.filter(id=vote_id).update(validade=True)
-                context['message'] = 'Token válido.'
+                voto = Voto.objects.get(id=vote_id)
+                if voto.validade:
+                    messages.success(self.request, 'Voto já foi Válidado!')
+                else:
+                    messages.success(self.request, 'Voto Válidado!')
+                    Voto.objects.filter(id=vote_id).update(validade=True)
+                upload_id = decoded_token['upload_id']
+                redirect_url = reverse('users:detail', kwargs={'pk': upload_id})
+                return redirect(redirect_url)
             except jwt.ExpiredSignatureError:
-                context['message'] = 'Token expirado.'
+                message = 'Token expirado.'
+                messages.error(self.request, message)
+                redirect_url = reverse('users:login')
+                return redirect(redirect_url)
             except jwt.InvalidTokenError:
-                context['message'] = 'Token inválido.'
+                message = 'Token inválido.'
+                messages.error(self.request, message)
+                redirect_url = reverse('users:login')
+                return redirect(redirect_url)
         else:
-            context['message'] = 'Nenhum Token encontrado.'
-        return context
+            message = 'Nenhum Token encontrado.'
+            messages.warning(self.request, message)
+            redirect_url = reverse('users:login')
+            return redirect(redirect_url)
+        
         
 

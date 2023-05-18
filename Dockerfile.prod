@@ -1,11 +1,11 @@
 # Use the official Python 3.8 Alpine image as the base
-FROM python:alpine
+FROM python:3.8-alpine
 
 # Create the 'app' user and group
 RUN addgroup -S app && adduser -S app -G app
 
 # Set the home and app directories for the 'app' user
-ENV HOME=/home/app
+ENV HOME=/home/avental
 ENV APP_HOME=${HOME}/web
 
 # Create the necessary directories and set the working directory
@@ -22,8 +22,10 @@ RUN apk update \
         postgresql-dev gcc python3-dev musl-dev \
     && apk add --no-cache \
         postgresql \
-        jpeg-dev zlib-dev libjpeg libffi-dev libmagic  \
+        jpeg-dev zlib-dev libjpeg \
     && pip install --upgrade pip
+
+RUN ln -sf /usr/share/zoneinfo/Europe/Lisbon /etc/localtime
 
 # Copy and install application dependencies
 COPY requirements.txt .

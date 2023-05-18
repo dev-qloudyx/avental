@@ -26,6 +26,7 @@ def send_email(sender, instance, created, **kwargs):
         expires_in = timedelta(days=7)
         token_payload = {
             'vote_id': instance.id,
+            'upload_id': instance.upload.id,
             'exp': datetime.utcnow() + expires_in
         }
         token = jwt.encode(token_payload, settings.SECRET_KEY, algorithm='HS256')
