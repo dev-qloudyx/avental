@@ -196,6 +196,12 @@ class CheckTokenUploadView(TemplateView):
             try:
                 decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
                 upload_id = decoded_token['upload_id']
+                upload = Upload.objects.get(id=upload_id)
+                if upload.ativo:
+                    messages.success(self.request, 'Upload já foi Válidado!')
+                else:
+                    messages.success(self.request, 'Upload Válidado!')
+                    Upload.objects.filter(id=upload_id).update(ativo=True)
                 redirect_url = reverse('users:detail', kwargs={'pk': upload_id})
                 return redirect(redirect_url)
             except jwt.ExpiredSignatureError:
