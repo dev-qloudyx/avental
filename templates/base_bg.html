@@ -39,6 +39,12 @@
                 <li class="nav-item menu-item mx-lg-1 mx-xl-4">
                     <a class="nav-link active" href="{% url 'users:list' request.user.id %}">Lista</a>
                 </li>
+                {% else %}
+                <li class="nav-item menu-item mx-lg-1 mx-xl-4">
+                    <a class="nav-link active" href="{% url 'users:list-all' %}">Lista</a>
+                </li>
+                {% endif %}
+                {% if user.is_authenticated %}
                 <li class="nav-item menu-item mx-lg-1 mx-xl-4">
                     <a class="nav-link active" href="{% url 'users:upload' %}">Upload</a>
                 </li>
@@ -57,6 +63,8 @@
                 <img class="rounded-circle mr-2 p-1" src="{% static 'images/smiley.png' %}">{{ user.username }}
             </a>
             <a class="btn btn-md mr-2 d-none d-lg-inline-block" style="padding-left: 12px; padding-right: 12px;" href="{% url 'users:logout' %}"><i class="fas fa-power-off"></i></a>
+            {% else %}
+            <a class="btn btn-md mr-2 d-none d-lg-inline-block" style="padding-left: 12px; padding-right: 12px;" href="{% url 'users:login' %}"><i class="fas fa-user"></i></a>
             <!-- <button onclick="logOut()" class="btn btn-md mr-2 d-none d-lg-inline-block" style="padding-left: 12px; padding-right: 12px;"><i class="fas fa-power-off"></i></button> -->
             {% endif %}
         </nav>

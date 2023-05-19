@@ -127,6 +127,14 @@ class UploadListView(ListView):
         return ctx
 
 
+class UploadAllListView(ListView):
+    model = Upload
+    template_name = 'users/list.html'
+
+    def get_queryset(self):
+        return Upload.objects.filter(ativo=True).annotate(votos=Count("voto", distinct=True))
+
+
 class VotoCreateView(CreateView):
     model = Voto
     form_class = VotoForm
