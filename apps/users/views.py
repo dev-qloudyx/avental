@@ -161,19 +161,17 @@ class VotoCreateView(CreateView):
             })
 
 class CheckTokenView(TemplateView):
-    
     def get(self, request, *args, **kwargs):
         token = self.request.GET.get('token')
-        
         if token:
             try:
                 decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
                 vote_id = decoded_token['vote_id']
                 voto = Voto.objects.get(id=vote_id)
                 if voto.validade:
-                    messages.success(self.request, 'Voto já foi Válidado!')
+                    messages.success(self.request, 'Voto já foi Validado!')
                 else:
-                    messages.success(self.request, 'Voto Válidado!')
+                    messages.success(self.request, 'Voto Validado!')
                     Voto.objects.filter(id=vote_id).update(validade=True)
                 upload_id = decoded_token['upload_id']
                 redirect_url = reverse('users:detail', kwargs={'pk': upload_id})
@@ -196,19 +194,17 @@ class CheckTokenView(TemplateView):
         
         
 class CheckTokenUploadView(TemplateView):
-    
     def get(self, request, *args, **kwargs):
         token = self.request.GET.get('token')
-        
         if token:
             try:
                 decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
                 upload_id = decoded_token['upload_id']
                 upload = Upload.objects.get(id=upload_id)
                 if upload.ativo:
-                    messages.success(self.request, 'Upload já foi Válidado!')
+                    messages.success(self.request, 'Upload já foi Validado!')
                 else:
-                    messages.success(self.request, 'Upload Válidado!')
+                    messages.success(self.request, 'Upload Validado!')
                     Upload.objects.filter(id=upload_id).update(ativo=True)
                 redirect_url = reverse('users:detail', kwargs={'pk': upload_id})
                 return redirect(redirect_url)
