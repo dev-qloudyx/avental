@@ -17,7 +17,7 @@ services:
             - vhost:/etc/nginx/vhost.d
             - /var/run/docker.sock:/tmp/docker.sock:ro
         networks:
-            - vorwerk_backend-network
+            - backend-network
     nginx-proxy-letsencrypt:
         image: jrcs/letsencrypt-nginx-proxy-companion
         env_file:
@@ -29,12 +29,12 @@ services:
             - vhost:/etc/nginx/vhost.d
             - acme:/etc/acme.sh
         networks:
-            - vorwerk_backend-network
+            - backend-network
         depends_on:
             - nginx-proxy
 
 networks:
-    vorwerk_backend-network:
+    backend-network:
         external: true
 
 volumes:

@@ -16,7 +16,7 @@ services:
         depends_on:
             - db
         networks:
-            - vorwerk_backend-network
+            - backend-network
     db:
         image: postgres:14.1-alpine
         volumes:
@@ -26,9 +26,9 @@ services:
         env_file:
             - ./.env.db.prod
         networks:
-            - vorwerk_backend-network
+            - backend-network
 networks:
-    vorwerk_backend-network:
+    backend-network:
         external: true
 volumes:
     postgres_data:
