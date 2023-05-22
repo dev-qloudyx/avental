@@ -1,9 +1,0 @@
-location /static/ {
-    alias /home/avental/web/staticfiles/;
-    add_header Access-Control-Allow-Origin *;
-}
-
-location /media/ {
-    alias /home/avental/web/media/;
-    add_header Access-Control-Allow-Origin *;
-}
