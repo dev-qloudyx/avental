@@ -8,8 +8,8 @@ services:
             - 443:443
             - 80:80
         volumes:
-            - vorwerk_static_volume:/home/vorwerk/web/static/
-            - vorwerk_media_volume:/home/vorwerk/web/media/
+            - vorwerk_static_volume:/home/app/web/static/
+            - vorwerk_media_volume:/home/app/web/media/
             - avental_static_volume:/home/avental/web/static/
             - avental_media_volume:/home/avental/web/media/
             - certs:/etc/nginx/certs
