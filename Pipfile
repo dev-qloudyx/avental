@@ -16,6 +16,7 @@ crispy-bootstrap4 = "*"
 celery = "*"
 django_celery_results = "*"
 pyjwt = "*"
+django-filter = "*"
 
 [dev-packages]
 

@@ -1,6 +1,6 @@
+import jwt
 from django.db.models.query import QuerySet
 from django.db.models import Count
-import jwt
 from typing import Any, Dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -17,6 +17,9 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django_filters.views import FilterView
+from .filters import UploadFilter
+
 
 
 def register(request):
@@ -111,8 +114,9 @@ class UploadDetailView(DetailView):
         ctx['votos'] = votos
         return ctx
 
-class UploadListView(ListView):
+class UploadListView(FilterView, ListView):
     model = Upload
+    filterset_class = UploadFilter
     template_name = 'users/list.html'
 
     def get(self,request, user_id):
@@ -127,8 +131,9 @@ class UploadListView(ListView):
         return ctx
 
 
-class UploadAllListView(ListView):
+class UploadAllListView(FilterView,ListView):
     model = Upload
+    filterset_class = UploadFilter
     template_name = 'users/list.html'
 
     def get_queryset(self):

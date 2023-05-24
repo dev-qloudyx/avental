@@ -1,5 +1,6 @@
 :root {
   --cor-bg-principal: black;
+  --cor-bimby: #00AC46;
 }
 
 html, body {
@@ -97,8 +98,8 @@ th{
 
 .btn {
   font-family: 'Source-Bold';
-  color:#046d84;
-  border-color: #046d84;
+  color:var(--cor-bimby);
+  border-color: var(--cor-bimby);
   background-color: white;
   border-radius: 8px;
   border-top-right-radius: 0;
@@ -106,25 +107,25 @@ th{
 
 .btn-rev {
   color: white;
-  border: #046d84;
-  background-color: #046d84;
+  border: var(--cor-bimby);
+  background-color: var(--cor-bimby);
 }
 
 .btn:hover {
   color:white;
-  border-color: #046d84;
-  background-color: #046d84;
+  border-color: var(--cor-bimby);
+  background-color: var(--cor-bimby);
 }
 
 .btn:active {
-  color:#046d84;
-  border-color: #046d84;
+  color:var(--cor-bimby);
+  border-color: var(--cor-bimby);
 }
 
 .btn[aria-expanded="true"]{
   color:white;
-  border-color: #046d84;
-  background-color: #046d84;
+  border-color: var(--cor-bimby);
+  background-color: var(--cor-bimby);
 }
 
 .btn-info {
@@ -134,8 +135,8 @@ th{
 
 .btn-selected {
   color:white;
-  border-color: #046d84;
-  background-color: #046d84;
+  border-color: var(--cor-bimby);
+  background-color: var(--cor-bimby);
 }
 
 .btn-outline-danger {
@@ -354,7 +355,7 @@ a.article:hover {
 li.menu-item {
   font-family: 'Source-Bold';
   color: white;
-  background-color: #046d84;
+  background-color: var(--cor-bimby);
   border-radius: 8px;
   /* padding: 0.25rem 0.5rem; */
   border-top-right-radius: 0;
@@ -410,7 +411,7 @@ div.navbar-collapse {
 }
 
 .heroimgbox > div > h4 {
-  color: #e87e19;
+  color: #23282A;
 }
 
 
@@ -484,7 +485,7 @@ div.navbar-collapse {
   li.menu-item,
   .menu-user {
     font-size: 0.9em;
-    background-color: #046d84;
+    background-color: var(--cor-bimby);
     width: 100%;
     line-height: 1.3rem;
     border-radius: 0;
@@ -493,7 +494,7 @@ div.navbar-collapse {
     color: white;
   }
   div.navbar-collapse {
-    background-color: #046d84;
+    background-color: var(--cor-bimby);
   }
   #navbarSupportedContent {
     position: absolute;
@@ -735,7 +736,7 @@ table.table thead th.desc.orderable::after {
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-  color: #046d84;
+  color: var(--cor-bimby);
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -750,7 +751,7 @@ table.table thead th.desc.orderable::after {
 }
 .nav-tabs .nav-link.active {
   color: #fff;
-  background-color: #046d84;
+  background-color: var(--cor-bimby);
 }
 
 .nav-tabs .nav-link {

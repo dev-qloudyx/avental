@@ -4,7 +4,7 @@
 {% block content%}
 <style>
     .x {
-        color: #e87e19;;
+        color: #23282A;
     }
 </style>
 <div class="row">
@@ -13,7 +13,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4" style="color: #e87e19;"><i style="width: 30px" class="fa-solid fa-user-plus"></i>Registo</legend>
+                    <legend class="border-bottom mb-4" style="color: #23282A;"><i style="width: 30px" class="fa-solid fa-user-plus"></i>Registo</legend>
                     <div class="row">
                         <div class="col-12">
                             <div class="row">
@@ -51,7 +51,7 @@
             </form>
             <div class="pb-2">
                 <p class="text-muted">
-                    Já se registou? <a href="{% url 'users:login' %}" style="color: #e87e19;">Inicie sessão aqui</a>
+                    Já se registou? <a href="{% url 'users:login' %}" style="color: #23282A;">Inicie sessão aqui</a>
                 </p>
             </div>
             <!-- <div class="border-top pt-3">
