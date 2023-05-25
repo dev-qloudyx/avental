@@ -34,7 +34,7 @@ def send_email(sender, instance, created, **kwargs):
         query_params = urlencode({'token': str(token)})
         verification_link = f"{validate_token_link}?{query_params}"
         subject = 'Avental - Validar Voto'
-        from_email = settings.EMAIL_HOST_USER
+        from_email = settings.DEFAULT_FROM_EMAIL
         to_email = instance.email
         html_content = render_to_string('users/validate_vote.html', {'expires_in': expires_in, 'email': instance.email, 'verification_link': verification_link})
         text_content = 'Please enable HTML in your email client to view this message.'
@@ -55,7 +55,7 @@ def send_email_upload(sender, instance, created, **kwargs):
         query_params = urlencode({'token': str(token)})
         verification_link = f"{validate_token_link}?{query_params}"
         subject = 'Valide a sua participação! Viagem à Fábrica da Vorwerk'
-        from_email = settings.EMAIL_HOST_USER
+        from_email = settings.DEFAULT_FROM_EMAIL
         to_email = instance.email
         html_content = render_to_string('users/validate_upload.html', {'expires_in': expires_in, 'email': instance.email, 'verification_link': verification_link})
         text_content = 'Please enable HTML in your email client to view this message.'
