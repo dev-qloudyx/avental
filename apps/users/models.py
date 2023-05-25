@@ -74,7 +74,7 @@ class Profile(models.Model):
 
 class Upload(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, verbose_name="E-mail")
     first_name = models.CharField(max_length=80, verbose_name="Nome")
     last_name = models.CharField(max_length=80, verbose_name="Apelido")
     imagem = models.ImageField(upload_to='avental_pics', verbose_name="Imagem")

@@ -1,8 +1,9 @@
 {% extends "base_bg.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
-<div style="background-color: white; padding: 10px; margin: 50px; margin-bottom: 0px; border-top-right-radius: 10px; border-top-left-radius: 10px;" class="row align-items-end">
+<div style="background-color: white; padding: 10px; margin: 50px; margin-bottom: 0px;margin-top: 30px; border-top-right-radius: 10px; border-top-left-radius: 10px;" class="row align-items-end">
     <div class="col-6">
         <h3>Pesquisa</h3>
     </div>
@@ -27,16 +28,16 @@
                         {{ filter.form.last_name|as_crispy_field  }}
                     </div>
                 </div>   
-                <button class='btn btn-md mt-1 mb-1' type="submit">Enviar</button>
+                <button class='btn btn-md mt-1 mb-1' type="submit">Pesquisar</button>
             </form>
         </div>
     </div>
 </div>
-<div class="row" style="padding:50px">
+<div class="row" style="padding:50px;">
     {% for object in object_list %}
-    <div class="col-lg-3 col-12">
+    <div class="col-lg-3 col-12" style="margin-bottom: 30px;">
         <div class="card heroimgbox">
-            <img class="card-img-top heroimg" src="{{object.imagem.url}}" alt="Card image cap" height="300px">
+            <img class="card-img-top heroimg" src="{{object.imagem.url}}" alt="Card image cap" height="350px">
             <div class="card-body">
             <h5 class="card-title">{{object.first_name}} {{object.last_name}}</h5>
             <!-- <p class="card-text">Votos: {{object.votos}}</p> -->

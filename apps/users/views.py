@@ -88,7 +88,6 @@ class MyPasswordResetDoneView(PasswordResetDoneView):
 class UploadCreateView(CreateView):
     model = Upload
     form_class = UploadForm
-    success_url = reverse_lazy("users:profile") 
 
     def get(self, request):
         self.user_id = request.user.id
@@ -102,6 +101,14 @@ class UploadCreateView(CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['user_id'] = self.user_id
         return kwargs
+
+    def get_success_url(self):
+        messages.success(self.request, 'Participação Submetida! Deverá consultar o e-mail para validar a participação!')
+        return reverse(
+            'users:list',
+            kwargs={
+                'user_id': self.user_id
+            })
 
 
 class UploadDetailView(DetailView):
@@ -211,7 +218,7 @@ class CheckTokenUploadView(TemplateView):
                 else:
                     messages.success(self.request, 'Upload Validado!')
                     Upload.objects.filter(id=upload_id).update(ativo=True)
-                redirect_url = reverse('users:detail', kwargs={'pk': upload_id})
+                redirect_url = reverse('users:list-all')
                 return redirect(redirect_url)
             except jwt.ExpiredSignatureError:
                 message = 'Token expirado.'

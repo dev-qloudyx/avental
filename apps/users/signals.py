@@ -54,7 +54,7 @@ def send_email_upload(sender, instance, created, **kwargs):
         validate_token_link = f"{settings.TOKEN_URL}/check-token-upload"
         query_params = urlencode({'token': str(token)})
         verification_link = f"{validate_token_link}?{query_params}"
-        subject = 'Avental - Validar Upload'
+        subject = 'Valide a sua participação! Viagem à Fábrica da Vorwerk'
         from_email = settings.EMAIL_HOST_USER
         to_email = instance.email
         html_content = render_to_string('users/validate_upload.html', {'expires_in': expires_in, 'email': instance.email, 'verification_link': verification_link})
