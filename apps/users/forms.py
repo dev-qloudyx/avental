@@ -2,6 +2,7 @@ from django import forms
 from .models import User, Profile, Upload, Voto
 from django.utils.safestring import mark_safe
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 
 
 class UserRegisterForm(UserCreationForm):
@@ -29,6 +30,20 @@ class UserRegisterForm(UserCreationForm):
         self.fields['password2'].help_text = ''
         self.fields['email'].label = 'E-mail'
         self.fields['aceito'].required = True
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(username=username).count():
+            raise forms.ValidationError(("Este e-mail já se encontra registado."))
+        return email
+    
+    def clean_username(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if username and User.objects.filter(username=username).exclude(email=email).count():
+            raise forms.ValidationError(("O nome de utilizador que escolheu já se encontra registado."))
+        return username
 
 
 class ProfileRegisterForm(forms.ModelForm):
@@ -63,6 +78,12 @@ class UploadForm(forms.ModelForm):
         user_id = kwargs.pop('user_id')
         super().__init__(*args, **kwargs)
         self.initial['user'] = User.objects.get(id=user_id)
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and Upload.objects.filter(email=email).count():
+            raise forms.ValidationError(("Este e-mail já está associado a uma participação. Tente novamente."))
+        return email
 
 
 class VotoForm(forms.ModelForm):
