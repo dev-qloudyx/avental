@@ -103,7 +103,7 @@ class UploadCreateView(CreateView):
         return kwargs
 
     def get_success_url(self):
-        messages.success(self.request, 'Participação Submetida! Deverá consultar o e-mail para validar a participação!')
+        messages.success(self.request, f'Participação Submetida! Deverá consultar o e-mail "{self.object.email}" para validar a participação!')
         return reverse(
             'users:list',
             kwargs={
