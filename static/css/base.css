@@ -36,7 +36,7 @@ a {
 }
 
 legend{
-  color: #dd6f08;
+  color: #333333;
 }
 
 th.k-scheduler-datecolumn{
@@ -396,7 +396,7 @@ div.navbar-collapse {
 
 .heroimgbox {
   border-radius: 18px;
-  border: 1px solid #b1b2b3;
+  border: 1px solid #545454;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   /* transition: transform .5s,box-shadow .5s ease-in-out; */
 }
@@ -500,7 +500,7 @@ div.navbar-collapse {
     position: absolute;
     z-index: 1;
     width: 100%;
-    margin-top: 15em;
+    margin-top: 14.9em;
     margin-left: -24px!important;
   }
   #content {

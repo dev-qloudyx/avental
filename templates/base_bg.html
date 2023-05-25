@@ -12,7 +12,7 @@
     <style>
         @media (max-width: 991px) {
             #navbarSupportedContent {
-                margin-top: 10em;
+                margin-top: 13.6em;
             }
         }
     </style>
@@ -42,6 +42,13 @@
                 {% else %}
                 <li class="nav-item menu-item mx-lg-1 mx-xl-4">
                     <a class="nav-link" href="{% url 'users:list-all' %}">Participações</a>
+                </li>
+                <li class="menu-user d-block d-lg-none">
+                    <hr class="d-lg-none" style="border-top: 1px solid white;">
+                    <!-- <button onclick="logOut()" class="btn-rev btn-md mr-1"
+                        style="padding: 0.5rem 1rem;"><i class="fas fa-power-off"></i>&nbsp; Logout
+                    </button> -->
+                    <a href="{% url 'users:login' %}" class="nav-link">Login</a>
                 </li>
                 {% endif %}
                 {% if user.is_authenticated %}

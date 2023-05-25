@@ -3,6 +3,9 @@
 {% load static %}
 
 {% block content %}
+<div style="margin-left: -16px; margin-right: -16px;">
+    <img src="{% static 'images/imagem.jpg' %}" width="100%" alt="">
+</div>
 <div style="background-color: white; padding: 10px; margin: 20px; margin-bottom: 0px;margin-top: 30px; border-top-right-radius: 10px; border-top-left-radius: 10px;" class="row align-items-end">
     <div class="col-6">
         <h3>Pesquisa</h3>
@@ -33,9 +36,9 @@
         </div>
     </div>
 </div>
-<div class="row" style="padding:50px;">
+<div class="row" style="padding:20px; padding-top: 40px;">
     {% for object in object_list %}
-    <div class="col-lg-3 col-12" style="margin-bottom: 30px;">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12" style="margin-bottom: 30px;">
         <div class="card heroimgbox">
             <img class="card-img-top heroimg" src="{{object.imagem.url}}" alt="Card image cap" height="350px">
             <div class="card-body">

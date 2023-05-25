@@ -34,7 +34,7 @@ urlpatterns = [
         PasswordResetView.as_view(
             template_name='users/password_reset.html',
             email_template_name='users/password_reset_email.html',
-            success_url=reverse_lazy('users:password_reset_done')
+            success_url=reverse_lazy('users:list-all')
         ),
         name='password_reset'
     ),
