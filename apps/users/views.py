@@ -1,6 +1,6 @@
 import jwt
 from django.db.models.query import QuerySet
-from django.db.models import Count
+from django.db.models import Count, Q
 from typing import Any, Dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -144,7 +144,7 @@ class UploadAllListView(FilterView,ListView):
     template_name = 'users/list.html'
 
     def get_queryset(self):
-        return Upload.objects.filter(ativo=True).annotate(votos=Count("voto", distinct=True))
+        return Upload.objects.filter(ativo=True).annotate(votos=Count("voto", filter=Q(voto__validade=True)))
 
 
 class VotoCreateView(CreateView):

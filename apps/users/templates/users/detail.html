@@ -2,10 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-<meta name="twitter:title" content="Title">
-<meta name="twitter:description" content="Cool description">
-<meta name="twitter:image" content="{{object.imagem.url}}">
-<meta name="twitter:card" content="summary_large_image">
 <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
         <div class="heroimgbox-login p-4 my-5">
@@ -13,16 +9,20 @@
                 <div class="col-12 col-lg-6">
                     <img style="max-height: 600px;" src="{{object.imagem.url}}" alt="Imagem Avental" width="100%">
                 </div>
-                <div class="col-12 col-lg-6">
+                <div class="my-4 col-12 col-lg-6">
                     <h3 class="p-2">{{ object.first_name }} {{ object.last_name }}</h3>
-                    <!-- <h5 class="p-2">Votos: {{votos}}</h5> -->
-                    <!-- <a class="m-2 btn btn-outline-info" href="{% url 'users:voto' object.id %}">Votar</a> -->
+                    <h5 class="p-2">Votos: {{votos}}</h5>
+                    <a class="m-2 btn btn-outline-info" href="{% url 'users:voto' object.id %}">Votar</a>
                     <br>
                     <br>
                     <h5 class="m-2" style="border-bottom: 1px solid black;">Partilhe</h5>
                     <div class="m-2">
-                        <a class="mr-2" style="font-size: 35px;" href="https://api.whatsapp.com/send?text={{request.META.HTTP_HOST}}/" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a class="mr-2" style="font-size: 35px;" href="https://www.facebook.com/sharer/sharer.php?u=atlas.qloudyx.pt" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+                        <a class="mr-2" style="font-size: 35px;" href="https://api.whatsapp.com/send?text=https://passatempo.bimby.pt/upload/{{object.id}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a class="mr-2" style="font-size: 35px;" href="https://www.facebook.com/sharer.php?u=passatempo.bimby.pt/upload/{{object.id}}" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+                        <a class="mr-2" style="font-size: 35px;" href="https://twitter.com/intent/tweet?text=%20passatempo.bimby.pt/upload/{{object.id}}" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                        <a class="mr-2" style="font-size: 35px;" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fpassatempo.bimby.pt/upload/{{object.id}}" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+                        <a class="mr-2" style="font-size: 35px;" href="mailto:?subject=Votação Passatempo Bimby®&body=https://passatempo.bimby.pt/upload/{{object.id}}"><i class="fas fa-envelope"></i></a>
+
                     </div>
                     <script>navigator.clipboard.writeText(window.location.href);</script>
 

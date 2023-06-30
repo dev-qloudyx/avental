@@ -33,7 +33,7 @@ def send_email(sender, instance, created, **kwargs):
         validate_token_link = f"{settings.TOKEN_URL}/check-token"
         query_params = urlencode({'token': str(token)})
         verification_link = f"{validate_token_link}?{query_params}"
-        subject = 'Avental - Validar Voto'
+        subject = 'Validar Voto'
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = instance.email
         html_content = render_to_string('users/validate_vote.html', {'expires_in': expires_in, 'email': instance.email, 'verification_link': verification_link})
