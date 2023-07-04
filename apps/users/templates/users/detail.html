@@ -12,7 +12,7 @@
                 <div class="my-4 col-12 col-lg-6">
                     <h3 class="p-2">{{ object.first_name }} {{ object.last_name }}</h3>
                     <h5 class="p-2">Votos: {{votos}}</h5>
-                    <a class="m-2 btn btn-outline-info" href="{% url 'users:voto' object.id %}">Votar</a>
+                    <!-- <a class="m-2 btn btn-outline-info" href="{% url 'users:voto' object.id %}">Votar</a> -->
                     <br>
                     <br>
                     <h5 class="m-2" style="border-bottom: 1px solid black;">Partilhe</h5>
@@ -22,10 +22,7 @@
                         <a class="mr-2" style="font-size: 35px;" href="https://twitter.com/intent/tweet?text=%20passatempo.bimby.pt/upload/{{object.id}}" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
                         <a class="mr-2" style="font-size: 35px;" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fpassatempo.bimby.pt/upload/{{object.id}}" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
                         <a class="mr-2" style="font-size: 35px;" href="mailto:?subject=Votação Passatempo Bimby®&body=https://passatempo.bimby.pt/upload/{{object.id}}"><i class="fas fa-envelope"></i></a>
-
                     </div>
-                    <script>navigator.clipboard.writeText(window.location.href);</script>
-
                 </div>
             </div>
         </div>
