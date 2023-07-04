@@ -131,7 +131,7 @@ class UploadListView(FilterView, ListView):
         return super().get(request)
 
     def get_queryset(self):
-        return Upload.objects.filter(user=self.user_id, ativo=True).annotate(votos=Count("voto", distinct=True))
+        return Upload.objects.filter(user=self.user_id, ativo=True).annotate(votos=Count("voto", filter=Q(voto__validade=True)))
     
     def get_context_data(self, **kwargs: Any):
         ctx = super().get_context_data(**kwargs)
