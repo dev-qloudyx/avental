@@ -3,12 +3,13 @@ from django.contrib.auth.views import (
     LoginView, LogoutView, PasswordResetView, PasswordResetDoneView,
     PasswordResetConfirmView, PasswordResetCompleteView
 )
-from .views import register, profile, login_register, CheckTokenUploadView, UploadCreateView, UploadDetailView, VotoCreateView, CheckTokenView, UploadListView, UploadAllListView
+from .views import register, profile, stats, login_register, CheckTokenUploadView, UploadCreateView, UploadDetailView, VotoCreateView, CheckTokenView, UploadListView, UploadAllListView
 
 app_name = "users"
 
 urlpatterns = [
     path('register/', register, name='register'),
+    path('stats/', stats, name='stats'),
     path('profile/', profile, name='profile'),
     path('upload/', UploadCreateView.as_view(), name='upload'),
     path('upload/<int:pk>/', UploadDetailView.as_view(), name='detail'),

@@ -235,3 +235,11 @@ class CheckTokenUploadView(TemplateView):
             messages.warning(self.request, message)
             redirect_url = reverse('users:login')
             return redirect(redirect_url)
+
+@login_required
+def stats(request):
+    uploads = Upload.objects.all().count()
+    uploads_validos = Upload.objects.filter(ativo=True).count()
+    votos = Voto.objects.all().count()
+    votos_validos = Voto.objects.filter(validade=True).count()
+    return render(request, 'users/stats.html', context={'uploads':uploads,'uploads_validos':uploads_validos,'votos':votos,'votos_validos':votos_validos})

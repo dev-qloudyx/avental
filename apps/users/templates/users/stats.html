@@ -1,0 +1,41 @@
+{% extends "base_bg.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<style>
+    .card{
+        margin: 55px;
+    }
+
+    .card-text{
+        font-size: 70px;
+    }
+</style>
+<div class="row">
+    <div class="col-5 card text-center" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Uploads</h5>
+        <p class="card-text">{{uploads}}</p>
+        </div>
+    </div>
+    <div class="col-5 card text-center" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Uploads Válidos</h5>
+        <p class="card-text">{{uploads_validos}}</p>
+        </div>
+    </div>
+    <div class="col-5 card text-center" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Votos</h5>
+        <p class="card-text">{{votos}}</p>
+        </div>
+    </div>
+    <div class="col-5 card text-center" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Votos Válidos</h5>
+        <p class="card-text">{{votos_validos}}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}
